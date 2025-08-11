@@ -159,7 +159,7 @@ python debug_single_company.py "Kimberly-Clark"
 python analyze_network.py
 
 # Run the full scraper
-python BCOdata_cdp.py
+python web_ports_extractor.py
 ```
 
 ## File Structure

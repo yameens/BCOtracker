@@ -49,7 +49,7 @@ def test_files():
     """Test if required files exist."""
     files_to_check = [
         "consumerBCO.txt",
-        "BCOdata_cdp.py"
+        "web_ports_extractor.py"
     ]
     
     all_good = True
@@ -118,7 +118,7 @@ def main():
         print("\nTo run the scraper:")
         print("1. Start Chrome with: open -na 'Google Chrome' --args --remote-debugging-port=9222 --user-data-dir='$HOME/ChromeScrapeProfile'")
         print("2. Log in to ImportYeti in the Chrome window")
-        print("3. Run: python3 BCOdata_cdp.py")
+        print("3. Run: python3 web_ports_extractor.py")
     else:
         print("✗ Some tests failed. Please fix the issues above before running the main script.")
     

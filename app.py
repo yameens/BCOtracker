@@ -11,7 +11,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 
 # Import the scraper functions
-from BCOdata_cdp import (
+from web_ports_extractor import (
     init_driver_attach, resolve_company_candidates, 
     fetch_company_page_and_ports, score_candidate,
     slugify_company, NetworkCapture, extract_top_info_from_any

@@ -139,7 +139,7 @@ def better_data_extraction(html_content):
 
 # Quick integration functions for existing code
 def patch_existing_scraper():
-    """Patches to improve the existing BCOdata_cdp.py scraper"""
+    """Patches to improve the existing web_ports_extractor.py scraper"""
     
     improvements = {
         "cloudflare_detection": is_cloudflare_challenge,

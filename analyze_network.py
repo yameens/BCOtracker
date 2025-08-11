@@ -10,7 +10,7 @@ import time
 from pathlib import Path
 
 # Import the main script functions
-from BCOdata_cdp import (
+from web_ports_extractor import (
     init_driver_attach, resolve_company_candidates, 
     fetch_company_page_and_ports, score_candidate,
     slugify_company, NetworkCapture
