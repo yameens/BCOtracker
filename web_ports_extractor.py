@@ -7,14 +7,15 @@ Input: a text file of company names (one per line)
 Output: JSONL with structured results + a flat CSV view
 
 Example:
-  python web_ports_extractor.py \
-      --input consumerBCO.txt \
-      --out-json bco_ports.jsonl \
-      --out-csv  bco_ports.csv \
-      --top 5 --max 50 --sleep 0.5
+
+    python3 web_ports_extractor.py --input consumerBCO.txt \
+      --out-json bco_ports.jsonl --out-csv bco_ports.csv \
+      --top 5 --max 50 --sleep 0.5 --allow-importyeti \
+      --model gpt-5-mini --search-depth basic
+
 """
 
-import os, argparse, json, time, re, sys
+import os, argparse, json, time, re, sys, hashlib, pathlib
 from typing import List, Dict, Any, Tuple
 from dotenv import load_dotenv
 from tqdm import tqdm
@@ -32,7 +33,7 @@ def chunk_text(s: str, hard_cap: int = 180_000, step: int = 14_000) -> List[str]
     s = s[: hard_cap]
     return [s[i:i+step] for i in range(0, len(s), step)]
 
-def pick_urls(results: Dict[str, Any], max_urls: int = 6) -> List[str]:
+def pick_urls(results: Dict[str, Any], max_urls: int = 4) -> List[str]:
     urls = []
     for r in (results or {}).get("results", []):
         u = r.get("url")
@@ -56,16 +57,41 @@ def score_page_for_ports(txt: str) -> float:
     return hits + min(len(t) / 5_000, 10)
 
 def build_queries(name: str, allow_importyeti: bool) -> List[Tuple[str, List[str]]]:
-    q = []
-    # General logistics signals
-    q.append((f'"{name}" (import OR shipments OR "bill of lading" OR "entry port" OR "port of entry")', []))
-    q.append((f'"{name}" (ports OR logistics OR "supply chain") (US OR United States)', []))
-    # Company + “bill of lading” is often the best open-web hint
-    q.append((f'"{name}" "bill of lading"', []))
-    # Optionally include ImportYeti PUBLIC pages (not their API)
+    """Domain-first queries to reduce wasted extracts."""
+    lane_domains = ["importinfo.com", "importkey.com", "importgenius.com", "usimportdata.com"]
+    q: List[Tuple[str, List[str]]] = []
+    # 1) Lane-heavy domains first
+    q.append((f'"{name}"', lane_domains))
+    q.append((f'"{name}" "bill of lading"', lane_domains))
+    # 2) Optional: ImportYeti PUBLIC pages (not API)
     if allow_importyeti:
         q.append((f'"{name}" site:importyeti.com/company', ["importyeti.com"]))
+    # 3) Broad fallback
+    q.append((f'"{name}" (import OR shipments OR "bill of lading" OR "entry port" OR "port of entry")', []))
     return q
+
+# ----------------- tiny file cache -----------------
+CACHE_DIR = pathlib.Path(".cache")
+CACHE_DIR.mkdir(exist_ok=True)
+
+def _key(s: str) -> str:
+    return hashlib.sha1(s.encode("utf-8")).hexdigest()
+
+def cache_get(kind: str, key: str):
+    p = CACHE_DIR / f"{kind}-{_key(key)}.json"
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            return None
+    return None
+
+def cache_set(kind: str, key: str, data: Any):
+    p = CACHE_DIR / f"{kind}-{_key(key)}.json"
+    try:
+        p.write_text(json.dumps(data), encoding="utf-8")
+    except Exception:
+        pass
 
 # ----------------- Tavily helpers -----------------
 @retry(
@@ -74,15 +100,24 @@ def build_queries(name: str, allow_importyeti: bool) -> List[Tuple[str, List[str
     retry=retry_if_exception_type(Exception),
     reraise=True
 )
-def tavily_search(tv: TavilyClient, query: str, include_domains: List[str] | None, max_results=6) -> Dict[str, Any]:
+def tavily_search(tv: TavilyClient, query: str, include_domains: List[str] | None, max_results=4, depth: str = "basic") -> Dict[str, Any]:
     return tv.search(
         query=query,
-        search_depth="advanced",
-        max_results=max_results,
+        search_depth=depth,                # 'basic' by default (cheaper); use 'advanced' if needed
+        max_results=max_results,          # smaller page count
         include_answer=False,
         include_raw_content=False,
         include_domains=include_domains or [],
     )
+
+def tavily_search_cached(tv: TavilyClient, query: str, include_domains: List[str] | None, max_results=4, depth: str = "basic") -> Dict[str, Any]:
+    key = json.dumps({"q": query, "d": include_domains or [], "m": max_results, "depth": depth}, sort_keys=True)
+    hit = cache_get("search", key)
+    if hit is not None:
+        return hit
+    res = tavily_search(tv, query, include_domains, max_results=max_results, depth=depth)
+    cache_set("search", key, res)
+    return res
 
 @retry(
     stop=stop_after_attempt(3),
@@ -96,11 +131,30 @@ def tavily_extract(tv: TavilyClient, urls: List[str]) -> List[Dict[str, Any]]:
     ex = tv.extract(urls=urls)
     return (ex or {}).get("results", []) or []
 
+def tavily_extract_cached(tv: TavilyClient, urls: List[str]) -> List[Dict[str, Any]]:
+    """Cache extracts per-URL to avoid paying twice."""
+    results: List[Dict[str, Any]] = []
+    to_fetch: List[str] = []
+    for u in urls:
+        hit = cache_get("extract", u)
+        if hit is not None:
+            results.append(hit)
+        else:
+            to_fetch.append(u)
+    if to_fetch:
+        ex = tavily_extract(tv, to_fetch)
+        for r in ex:
+            url = r.get("url", "")
+            if url:
+                cache_set("extract", url, r)
+                results.append(r)
+    return results
+
 # ----------------- OpenAI helpers -----------------
 def model_extract_json(client: OpenAI, model: str, system: str, prompt: str) -> Dict[str, Any]:
     """
     Use Chat Completions with JSON object output (stable across SDKs).
-    Avoids Responses API / response_format mismatch issues.
+    No temperature override (some models only allow default=1).
     """
     resp = client.chat.completions.create(
         model=model,
@@ -109,20 +163,18 @@ def model_extract_json(client: OpenAI, model: str, system: str, prompt: str) -> 
             {"role": "user", "content": prompt},
         ],
         response_format={"type": "json_object"},
-        temperature=0,
     )
     raw = resp.choices[0].message.content
     try:
         return json.loads(raw)
     except Exception:
-        # fallback: try to snip first/last brace
         m = re.search(r"\{.*\}", raw, re.DOTALL)
         if m:
             return json.loads(m.group(0))
         raise
 
 # ----------------- main per-company flow -----------------
-def run_one_company(name: str, tv: TavilyClient, client: OpenAI, model: str, top_n: int, allow_importyeti: bool) -> Dict[str, Any]:
+def run_one_company(name: str, tv: TavilyClient, client: OpenAI, model: str, top_n: int, allow_importyeti: bool, search_depth: str) -> Dict[str, Any]:
     out = {
         "company": name,
         "status": "not_found",
@@ -134,27 +186,27 @@ def run_one_company(name: str, tv: TavilyClient, client: OpenAI, model: str, top
         "error": None
     }
 
-    # 1) Search
-    urls_all = []
+    # 1) Search (domain-first, cached, fewer results)
+    urls_all: List[str] = []
     for q, domains in build_queries(name, allow_importyeti):
         try:
-            sr = tavily_search(tv, q, include_domains=domains, max_results=6)
-            urls = pick_urls(sr, max_urls=6)
+            sr = tavily_search_cached(tv, q, include_domains=domains, max_results=4, depth=search_depth)
+            urls = pick_urls(sr, max_urls=4)
             for u in urls:
                 if u not in urls_all:
                     urls_all.append(u)
-        except Exception as e:
-            # keep going on next query
+        except Exception:
             continue
-        time.sleep(0.25)  # be gentle
+        time.sleep(0.15)  # gentle
 
     if not urls_all:
         out["error"] = "no_search_hits"
         return out
 
-    # 2) Pull text for a handful of pages
+    # 2) Extract a few pages first; expand only if needed (cached)
+    initial_cap = 4
     try:
-        extracted = tavily_extract(tv, urls_all[:8])
+        extracted = tavily_extract_cached(tv, urls_all[:initial_cap])
     except Exception as e:
         out["error"] = f"extract_failed: {e}"
         return out
@@ -165,6 +217,18 @@ def run_one_company(name: str, tv: TavilyClient, client: OpenAI, model: str, top
         txt = r.get("raw_content") or r.get("content") or ""
         if url and txt and len(clean(txt)) > 500:
             pages.append((url, clean(txt)))
+
+    # Lazy expansion if not enough usable text
+    if len(pages) < 2 and len(urls_all) > initial_cap:
+        try:
+            more = tavily_extract_cached(tv, urls_all[initial_cap:initial_cap+4])
+            for r in more:
+                url = r.get("url")
+                txt = r.get("raw_content") or r.get("content") or ""
+                if url and txt and len(clean(txt)) > 500:
+                    pages.append((url, clean(txt)))
+        except Exception:
+            pass
 
     if not pages:
         out["error"] = "no_pages_extracted"
@@ -239,7 +303,7 @@ TEXT CHUNK {idx}/{len(chunks)}:
         except Exception:
             pass
 
-        time.sleep(0.25)
+        time.sleep(0.15)
 
     # 6) Finalize
     out.update(agg)
@@ -276,7 +340,9 @@ def main():
     ap.add_argument("--max", type=int, default=10**9)
     ap.add_argument("--sleep", type=float, default=0.4, help="delay between companies (seconds)")
     ap.add_argument("--allow-importyeti", action="store_true", help="allow searching ImportYeti public pages")
-    ap.add_argument("--model", default=os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
+    ap.add_argument("--model", default=os.getenv("OPENAI_MODEL", "gpt-5-mini"))
+    ap.add_argument("--search-depth", choices=["basic","advanced"], default=os.getenv("TAVILY_SEARCH_DEPTH","basic"),
+                    help="Tavily search depth; 'basic' is cheaper")
     args = ap.parse_args()
 
     openai_key = os.getenv("OPENAI_API_KEY")
@@ -303,7 +369,8 @@ def main():
                 client=client,
                 model=args.model,
                 top_n=args.top,
-                allow_importyeti=args.allow_importyeti
+                allow_importyeti=args.allow_importyeti,
+                search_depth=args.search_depth
             )
         except Exception as e:
             r = {

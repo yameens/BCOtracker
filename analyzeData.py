@@ -1,3 +1,7 @@
+## web ports extractor information. cross reference the CSV sheet (import into pycharm) to align data and understand how it works.
+## game plan. create a new csv sheet, with scope target information, brief description of esg goals, and company name.
+## core. scrape top lanes per company and add top lanes + cargo tons (to see if it qualiifies as a potential target).
+
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
