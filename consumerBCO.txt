@@ -1,83 +1,3 @@
-Church & Dwight Co
-Arrow Electronics
-Shiseido Co
-United Natural Foods
-Kimberly-Clark
-Chipotle Mexican Grill
-PPG Industries
-Hyatt Hotels
-LG Electronics
-Magna International
-MGM Resorts
-Hermès International
-VF
-Apple
-Estee Lauder Companies
-Altria
-International Paper Company
-WestRock
-Hormel Foods
-Whirlpool
-Hershey Company
-Campbell Soup
-Bunge
-Next
-Mowi ASA
-Coty
-Lamb Weston Holdings
-Morrison Supermarkets
-Metro
-FMC
-JTEKT
-PSA Peugeot Citroen
-Stellantis
-Ceconomy
-Philip Morris International
-Kingfisher
-Marks & Spencer
-Anheuser-Busch InBev
-Imperial Brands
-Heineken
-Asahi  Holdings
-Reckitt Benckiser
-Sony
-Target
-UPM-Kymmene
-H&M Group
-Signify
-Carlsberg
-Coca-Cola European Partners
-Procter & Gamble Company
-Fortescue Metals
-Currys
-Anglo American
-Xiaomi
-JBS
-Ball
-Stora Enso
-Lotte Shopping Co
-Coca-Cola HBC AG
-ZF Friedrichshafen
-Crown Holdings
-Orkla
-Hyundai Mobis Co
-Tata Motors
-Grupo Bimbo
-adidas AG
-Novozymes
-Yara International ASA
-Molson Coors Brewing Company
-Sekisui Chemical Co
-Barry Callebaut
-Taiwan Cement
-Teck Resources
-Royal Ahold Delhaize N.V.
-Edeka Zentrale
-Mars
-Kesko
-Glencore International
-Norwegian Cruise Line Holdings
-ICA Gruppen AB
 Lindt & Sprungli
 Valeo
 Yum! Brands
@@ -187,3 +107,83 @@ Teleflex
 Bristol-Myers Squibb
 Zimmer Biomet Holdings
 ZOZO
+Church & Dwight Co
+Arrow Electronics
+Shiseido Co
+United Natural Foods
+Kimberly-Clark
+Chipotle Mexican Grill
+PPG Industries
+Hyatt Hotels
+LG Electronics
+Magna International
+MGM Resorts
+Hermès International
+VF
+Apple
+Estee Lauder Companies
+Altria
+International Paper Company
+WestRock
+Hormel Foods
+Whirlpool
+Hershey Company
+Campbell Soup
+Bunge
+Next
+Mowi ASA
+Coty
+Lamb Weston Holdings
+Morrison Supermarkets
+Metro
+FMC
+JTEKT
+PSA Peugeot Citroen
+Stellantis
+Ceconomy
+Philip Morris International
+Kingfisher
+Marks & Spencer
+Anheuser-Busch InBev
+Imperial Brands
+Heineken
+Asahi  Holdings
+Reckitt Benckiser
+Sony
+Target
+UPM-Kymmene
+H&M Group
+Signify
+Carlsberg
+Coca-Cola European Partners
+Procter & Gamble Company
+Fortescue Metals
+Currys
+Anglo American
+Xiaomi
+JBS
+Ball
+Stora Enso
+Lotte Shopping Co
+Coca-Cola HBC AG
+ZF Friedrichshafen
+Crown Holdings
+Orkla
+Hyundai Mobis Co
+Tata Motors
+Grupo Bimbo
+adidas AG
+Novozymes
+Yara International ASA
+Molson Coors Brewing Company
+Sekisui Chemical Co
+Barry Callebaut
+Taiwan Cement
+Teck Resources
+Royal Ahold Delhaize N.V.
+Edeka Zentrale
+Mars
+Kesko
+Glencore International
+Norwegian Cruise Line Holdings
+ICA Gruppen AB
