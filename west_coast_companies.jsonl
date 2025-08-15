@@ -1,17 +1,46 @@
+{"company": "Aisin Seiki Co", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 517}, {"port": "Tacoma", "shipments": 312}, {"port": "Oakland", "shipments": 79}, {"port": "Long Beach", "shipments": 21}]}
+{"company": "Ajinomoto", "top_west_coast_ports": [{"port": "Oakland", "shipments": 170}, {"port": "Tacoma", "shipments": 5}]}
+{"company": "AkzoNobel", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 41}]}
 {"company": "Arrow Electronics", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 831}, {"port": "Oakland", "shipments": 739}, {"port": "Long Beach", "shipments": 455}]}
-{"company": "Shiseido Co", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 185}, {"port": "Tacoma", "shipments": 39}, {"port": "Long Beach", "shipments": 26}]}
-{"company": "PPG Industries", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 366}]}
-{"company": "MGM Resorts", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 53}, {"port": "Long Beach", "shipments": 42}]}
-{"company": "VF", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 32}]}
-{"company": "Hershey Company", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 11}]}
+{"company": "BMW AG", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 172}]}
 {"company": "Campbell Soup", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 11}]}
-{"company": "Metro", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 68}, {"port": "Oakland", "shipments": 40}, {"port": "Los Angeles", "shipments": 21}]}
+{"company": "Carrier Global", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 10}, {"port": "Long Beach", "shipments": 1}]}
+{"company": "CJ Cheiljedang", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 1498}, {"port": "Los Angeles", "shipments": 587}, {"port": "Seattle", "shipments": 128}, {"port": "Tacoma", "shipments": 88}]}
+{"company": "Coca-Cola Company", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 94}]}
+{"company": "Continental AG", "top_west_coast_ports": [{"port": "Seattle", "shipments": 10}]}
+{"company": "Danone", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 655}]}
+{"company": "Emerson Electric Co.", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 109}, {"port": "Long Beach", "shipments": 72}]}
 {"company": "FMC", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 156}]}
-{"company": "JTEKT", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 48}, {"port": "Los Angeles", "shipments": 38}]}
-{"company": "Reckitt Benckiser", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 994}]}
-{"company": "Sony", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 537}]}
-{"company": "Signify", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 27}]}
-{"company": "Xiaomi", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 101}, {"port": "Long Beach", "shipments": 7}]}
+{"company": "Givaudan", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 163}]}
+{"company": "Hershey Company", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 11}]}
+{"company": "Honda Motor Company", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 545}]}
+{"company": "IKEA", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 507}, {"port": "Seattle", "shipments": 273}]}
 {"company": "JBS", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 7722}, {"port": "Long Beach", "shipments": 6}]}
-{"company": "Sekisui Chemical Co", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 967}, {"port": "Long Beach", "shipments": 217}]}
+{"company": "JTEKT", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 48}, {"port": "Los Angeles", "shipments": 38}]}
+{"company": "KT&G", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 2848}, {"port": "Los Angeles", "shipments": 693}]}
+{"company": "L'Oréal", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 1764}, {"port": "Long Beach", "shipments": 1485}]}
+{"company": "Lenovo", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 106}, {"port": "Long Beach", "shipments": 41}]}
+{"company": "Lindt & Sprungli", "top_west_coast_ports": [{"port": "Portland", "shipments": 1308}]}
+{"company": "Lowe's", "top_west_coast_ports": [{"port": "Oakland", "shipments": 567}, {"port": "Los Angeles", "shipments": 95}]}
 {"company": "Mars", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 99}, {"port": "Long Beach", "shipments": 66}]}
+{"company": "McCormick & Co", "top_west_coast_ports": [{"port": "Oakland", "shipments": 190}, {"port": "Seattle", "shipments": 14}]}
+{"company": "Meiji Holdings", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 57}, {"port": "Tacoma", "shipments": 27}]}
+{"company": "Metro", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 68}, {"port": "Oakland", "shipments": 40}, {"port": "Los Angeles", "shipments": 21}]}
+{"company": "MGM Resorts", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 53}, {"port": "Long Beach", "shipments": 42}]}
+{"company": "Mitsubishi", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 7245}, {"port": "Los Angeles", "shipments": 1013}, {"port": "Tacoma", "shipments": 418}]}
+{"company": "Mondi", "top_west_coast_ports": [{"port": "Tacoma", "shipments": 71}]}
+{"company": "Olam International", "top_west_coast_ports": [{"port": "Oakland", "shipments": 306}]}
+{"company": "PPG Industries", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 366}]}
+{"company": "Qantas Airways", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 97}, {"port": "Los Angeles", "shipments": 51}, {"port": "Oakland", "shipments": 37}]}
+{"company": "Reckitt Benckiser", "top_west_coast_ports": [{"port": "Seattle", "shipments": 1306}, {"port": "Tacoma", "shipments": 994}]}
+{"company": "Sekisui Chemical Co", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 967}, {"port": "Long Beach", "shipments": 217}]}
+{"company": "Shiseido Co", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 185}, {"port": "Tacoma", "shipments": 39}, {"port": "Long Beach", "shipments": 26}]}
+{"company": "Signify", "top_west_coast_ports": [{"port": "Seattle", "shipments": 32}, {"port": "Tacoma", "shipments": 27}]}
+{"company": "Sony", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 537}]}
+{"company": "Starbucks", "top_west_coast_ports": [{"port": "Oakland", "shipments": 34}, {"port": "Tacoma", "shipments": 24}]}
+{"company": "Tyson Foods", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 19}, {"port": "Los Angeles", "shipments": 13}]}
+{"company": "UPS", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 45551}, {"port": "Oakland", "shipments": 10381}, {"port": "Seattle", "shipments": 6440}]}
+{"company": "Valeo", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 110}, {"port": "Los Angeles", "shipments": 81}]}
+{"company": "VF", "top_west_coast_ports": [{"port": "Seattle", "shipments": 39}, {"port": "Tacoma", "shipments": 32}]}
+{"company": "Woolworths", "top_west_coast_ports": [{"port": "Long Beach", "shipments": 49}]}
+{"company": "Xiaomi", "top_west_coast_ports": [{"port": "Los Angeles", "shipments": 101}, {"port": "Long Beach", "shipments": 7}]}
