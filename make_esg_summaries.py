@@ -53,7 +53,7 @@ def setup_logging(debug: int):
 # =========================
 
 SYSTEM_INSTRUCTIONS = (
-    "You are an analyst. Using only the structured fields provided, write a concise 3–5 sentence "
+    "You are an analyst. Using only the structured fields provided, write a concise summary of just direct points for each number (e.g. scopes covered: 1 & 2) "
     "ESG / Net-Zero summary for the company. If a detail is missing, state 'not disclosed' rather than inferring. "
     "Prioritize: (1) net-zero or emissions targets and years; (2) scopes covered (1/2/3) and validation (e.g., SBTi); "
     "(3) interim progress/metrics; (4) key actions or policies; (5) any explicit risks/controversies; "
